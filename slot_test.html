@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slot</title>
+    <script src="https://vuejs.org/js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <father></father>
+        <div>
+            <child-with-slot v-bind:foobar="foobardata">
+                <template slot-scope="cc">
+                    <p>{{cc.text}}</p>
+                    <p>{{cc.tp}}</p>
+                </template>
+            </child-with-slot>
+        </div>
+    </div>
+    <script>
+        Vue.component('father',{
+            'template':'<div>\n' +
+            '  <h1>我是父组件的标题</h1>\n' +
+            '  <my-component>\n' +
+            '    <p>这是一些初始内容</p>\n' +
+            '    <p>这是更多的初始内容</p>\n' +
+            '  </my-component>\n' +
+            '</div>'
+        })
+
+        Vue.component('my-component',{
+            'template':'<div>\n' +
+            '  <h2>我是子组件的标题</h2>\n' +
+            '  <slot>\n' +
+            '    只有在没有要分发的内容时才会显示。\n' +
+            '  </slot>\n' +
+            '</div>'
+        })
+
+        Vue.component('child-with-slot',{
+            'template':'<div class="child">\n' +
+                '<span>{{foobar.name}}</span>'+
+            '  <slot text="hello from child" tp="cc"></slot>\n' +
+            '</div>',
+            'props':['foobar']
+        })
+
+        var app = new Vue({
+            el:'#app',
+            data:{
+                'foobardata':{
+                    "name":'lorem'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

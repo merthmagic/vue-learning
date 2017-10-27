@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slot</title>
+    <script src="https://vuejs.org/js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <awesome-list :items="items">
+        <template slot="item" slot-scope="scope">
+            Programming Language:<span>{{scope.text}}</span>
+        </template>
+    </awesome-list>
+</div>
+
+<script>
+    Vue.component('awesome-list', {
+        template: '<ul> \
+            <li v-for="item of items">\
+            <slot name="item"  :text="item.text">\
+            </slot> \
+            </li>\
+            </ul>\
+            ',
+        props: ['items']
+    })
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            items: [{text: 'Java8'}, {text: 'C#'}]
+        }
+    })
+</script>
+</body>
+</html>

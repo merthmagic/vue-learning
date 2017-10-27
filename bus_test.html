@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bus</title>
+    <script src="https://vuejs.org/js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <compa></compa>
+        <compb></compb>
+    </div>
+<script>
+    var bus = new Vue()
+
+    Vue.component('compa',{
+        'template':'<div><input type="button" value="ComponentA" @click="doClickA"></div>',
+        'data':function(){
+            return {
+
+            }
+        },
+        'methods':{
+            'doClickA':function(){
+                bus.$emit('fire','hi,i fancy u')
+            }
+        }
+    })
+
+    Vue.component('compb',{
+        'template':'<div><input type="button" value="ComponentB"></div>',
+        'data':function(){
+            return {
+
+            }
+        },
+        'methods':{
+
+        },
+        created:function(){
+            bus.$on('fire',function(msg){
+                console.log('fired,received in component b')
+                console.log(msg)
+            })
+        }
+    })
+
+    var app = new Vue({
+        el:'#app',
+        data:{
+
+        },
+        methods:{
+
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vue Demo</title>
+    <!--<script src="https://cdn.bootcss.com/vue/2.4.4/vue.min.js"></script>-->
+    <script src="https://vuejs.org/js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p :title="message" @click="doClick">{{message}}</p>
+
+        <ul>
+            <todo-item v-for="item in items" :todo="item" :key="item.id" :class="{active:isActive}" :style="{fontFamily:'Georgia'}"></todo-item>
+        </ul>
+    </div>
+
+<script>
+    Vue.component('todo-item',{
+        props:['todo'],
+        template:'<li><span>{{todo.text}}</span></li>'
+    })
+
+    var app = new Vue({
+        el:'#app',
+        data:{
+            message:'what the fuck',
+            items:[{id:1,text:'java'},{id:2,text:'C#'}],
+            isActive:true
+        },
+        methods:{
+            doClick:function(){
+
+            }
+        },
+        created:function(){
+            console.log("hi-ho,silver")
+        }
+    })
+
+
+</script>
+</body>
+</html>

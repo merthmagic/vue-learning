@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Component Test</title>
+    <script src="https://vuejs.org/js/vue.js"></script>
+</head>
+<body>
+<div>
+    <div id="app">
+        <login-form @login="doLogin"></login-form>
+    </div>
+</div>
+    <script>
+        Vue.component('login-form',{
+            'data': function(){
+                return {
+                    'username':'',
+                    'password':''
+                }
+            },
+            methods:{
+                doClick:function(){
+                    console.log('component doclick method fired')
+                    this.$emit('login',{
+                        'uname':this.username,
+                        'pwd':this.password
+                    },this.username)
+                }
+            },
+            'template':'<form>\
+                            <input placeholder="输入用户名" v-model="username">\
+                            <input type="password" v-model="password">\
+                            <input type="button" value="提交" @click="doClick"> \
+                        </form>'
+        })
+
+        var app = new Vue({
+            data:{
+            },
+            el:'#app',
+            methods:{
+                doLogin:function(p,q){
+                    console.log('app dologin method fired')
+                    console.log(p)
+                    console.log(q)
+                }
+            }
+        })
+    </script>
+</body>
+</html>
