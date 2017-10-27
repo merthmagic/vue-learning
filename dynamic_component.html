@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Component</title>
+    <script src="https://vuejs.org/js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <component :is="currentView"></component>
+    <input type="button" value="SwitchToHome" @click="switchx('home')">
+    <input type="button" value="SwitchToPost" @click="switchx('posts')">
+    <input type="button" value="SwitchToFoobar" @click="switchx('foobar')">
+    <input type="button" value="SwitchToArchive" @click="switchx('archive')">
+</div>
+<script>
+
+    Vue.component('x-comp',{
+        template:'<p>An X Component</p>'
+    })
+
+    var Archive ={
+        template:'<p>Archive</p>'
+    }
+
+    var app = new Vue({
+        el:'#app',
+        data:{
+            'currentView':'home'
+        },
+        components:{
+            home:{template:'<p>Home</p>'},
+            posts:{template:'<p>Posts</p>'},
+            foobar:{template:'<x-comp></x-comp>'},
+            archive:Archive
+        },
+        methods:{
+            'switchx':function(target){
+                console.log(target)
+                this.currentView = target
+            }
+        }
+    })
+</script>
+</body>
+</html>
